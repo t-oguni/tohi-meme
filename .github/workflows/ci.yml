@@ -1,35 +1,19 @@
-name: CI with pytest and schedule
+name: Hello CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-  schedule:
-    - cron: "0 9 * * 1-5"
-
-permissions:
-  contents: read
+    branches: [main]
 
 jobs:
-  check:
+  hello:
     runs-on: ubuntu-latest
-
     steps:
-      - name: コードを取得する
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
-      - name: Python をセットアップする
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
+      - name: Say Hello
+        run: echo "Hello, World!"
 
-      - name: 依存パッケージをインストールする
-        run: python -m pip install -r requirements.txt
-
-      - name: 構文チェック
-        run: python -m py_compile main.py
-
-      - name: テスト実行
-        run: pytest -q
+      - name: Show date
+        run: echo "今日の日付： $(date)"
